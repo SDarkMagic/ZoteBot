@@ -10,10 +10,22 @@ bot = commands.Bot(
     initial_channels=['ZoteTheMightyBot']
 )
 
+channelList = ['JWDragair', 'JaySkilling']
+
 @bot.event()
-async def event_ready(ctx):
+async def event_ready():
+  bot.load_module('cogs.precepts')
   print('Zote has entered the arena and is preparing for combat...')
-  await __ws.send_privmsg('ZoteTheMightyBot', 'Booptis')
+  await bot.join_channels(channelList)
+
+@bot.event()
+async def event_message(ctx):
+  # print(ctx.author)
+  return
+
+@bot.command(name='reloadCog')
+async def reloadCog(ctx):
+  bot.reload_module('cogs.precepts')
 
 if __name__ == '__main__':
   bot.run()
